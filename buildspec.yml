@@ -1,0 +1,14 @@
+version: 0.2
+phases:
+  pre_build:
+    commands:
+      - echo Logging into DockerHub
+      - docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
+  build:
+    commands:
+      - echo Build started on $(date)
+      - docker build -t $IMAGE_REPO_NAME .
+  post_build:
+    commands:
+      - echo Uploading to DockerHub at $(date)
+      - docker push $IMAGE_REPO_NAME
